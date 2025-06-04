@@ -3,7 +3,7 @@
 import { useEffect } from 'react';
 import { useWalletStore } from '@/stores/wallet';
 import { useContractStore } from '@/stores/contract';
-import { Header } from '@/components/layout/Header';
+import Header from '@/components/layout/Header';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -47,57 +47,48 @@ export default function Dashboard() {
 
   if (!isConnected) {
     return (
-      <div className="min-h-screen bg-background">
+      <div className="min-h-screen bg-[#181A20]">
         <Header />
-        <main className="container mx-auto px-4 py-8">
-          <div className="flex flex-col items-center justify-center min-h-[calc(100vh-120px)] space-y-8">
-            <div className="text-center space-y-4 max-w-2xl">
-              <h1 className="text-4xl font-bold tracking-tight">
-                Real World Asset Investment Platform
-              </h1>
-              <p className="text-xl text-muted-foreground">
-                Access tokenized real estate, commodities, and other physical assets 
-                through compliant blockchain technology on Stellar.
-              </p>
-            </div>
+        <main className="container mx-auto p-6">
+          <h1 className="text-4xl font-bold text-[#00FFFF] mb-4">AIToken Innovation Fund</h1>
+          <p className="text-[#F4F4F4] mb-8">Tokenize and trade AI models, datasets, and patents on the blockchain</p>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-3xl">
+            <Card className="text-center">
+              <CardHeader>
+                <Building2 className="h-12 w-12 mx-auto text-primary" />
+                <CardTitle className="text-lg">Tokenized Assets</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm text-muted-foreground">
+                  Invest in premium real estate and other assets through blockchain tokens
+                </p>
+              </CardContent>
+            </Card>
             
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-3xl">
-              <Card className="text-center">
-                <CardHeader>
-                  <Building2 className="h-12 w-12 mx-auto text-primary" />
-                  <CardTitle className="text-lg">Tokenized Assets</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-sm text-muted-foreground">
-                    Invest in premium real estate and other assets through blockchain tokens
-                  </p>
-                </CardContent>
-              </Card>
-              
-              <Card className="text-center">
-                <CardHeader>
-                  <CheckCircle className="h-12 w-12 mx-auto text-green-600" />
-                  <CardTitle className="text-lg">Compliant</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-sm text-muted-foreground">
-                    KYC verification and regulatory compliance built into every transaction
-                  </p>
-                </CardContent>
-              </Card>
-              
-              <Card className="text-center">
-                <CardHeader>
-                  <TrendingUp className="h-12 w-12 mx-auto text-blue-600" />
-                  <CardTitle className="text-lg">High Yield</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-sm text-muted-foreground">
-                    Earn passive income through rental yields and asset appreciation
-                  </p>
-                </CardContent>
-              </Card>
-            </div>
+            <Card className="text-center">
+              <CardHeader>
+                <CheckCircle className="h-12 w-12 mx-auto text-green-600" />
+                <CardTitle className="text-lg">Compliant</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm text-muted-foreground">
+                  KYC verification and regulatory compliance built into every transaction
+                </p>
+              </CardContent>
+            </Card>
+            
+            <Card className="text-center">
+              <CardHeader>
+                <TrendingUp className="h-12 w-12 mx-auto text-blue-600" />
+                <CardTitle className="text-lg">High Yield</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm text-muted-foreground">
+                  Earn passive income through rental yields and asset appreciation
+                </p>
+              </CardContent>
+            </Card>
           </div>
         </main>
       </div>
@@ -105,218 +96,92 @@ export default function Dashboard() {
   }
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-[#181A20]">
       <Header />
-      <main className="container mx-auto px-4 py-8">
-        <div className="space-y-8">
-          {/* Welcome Section */}
-          <div className="space-y-4">
-            <h1 className="text-3xl font-bold">Welcome to RWA Investor</h1>
-            <p className="text-lg text-muted-foreground">
-              Your gateway to tokenized real world assets
-            </p>
-          </div>
+      <main className="container mx-auto p-6">
+        <h1 className="text-3xl font-bold mb-8 text-[#00FFFF]">AI Token Innovation Fund</h1>
+        
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+          <DashboardCard
+            title="AI Portfolio Value"
+            value="$2.5M"
+            icon="🤖"
+          />
+          <DashboardCard
+            title="Active Models"
+            value="12"
+            icon="🧠"
+          />
+          <DashboardCard
+            title="Total Investors"
+            value="156"
+            icon="💡"
+          />
+          <DashboardCard
+            title="Verification Status"
+            value="Verified"
+            icon="✅"
+          />
+        </div>
 
-          {/* Portfolio Overview Stats */}
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-            <Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">Your Holdings</CardTitle>
-                <Building2 className="h-4 w-4 text-muted-foreground" />
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">
-                  {formatTokenAmount(userBalance)} LAPT
-                </div>
-                <p className="text-xs text-muted-foreground">
-                  ≈ {formatCurrency(
-                    (parseFloat(formatTokenAmount(userBalance)) * 1000).toString()
-                  )}
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">Compliance Status</CardTitle>
-                {isWhitelisted ? (
-                  <CheckCircle className="h-4 w-4 text-green-600" />
-                ) : (
-                  <AlertCircle className="h-4 w-4 text-yellow-600" />
-                )}
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">
-                  {isWhitelisted ? 'Verified' : 'Pending'}
-                </div>
-                <p className="text-xs text-muted-foreground">
-                  {compliance?.kyc_verified ? 'KYC Complete' : 'KYC Required'}
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">Est. Annual Yield</CardTitle>
-                <TrendingUp className="h-4 w-4 text-muted-foreground" />
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">8.5%</div>
-                <p className="text-xs text-muted-foreground">
-                  Rental income + appreciation
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">Next Distribution</CardTitle>
-                <Clock className="h-4 w-4 text-muted-foreground" />
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">15 days</div>
-                <p className="text-xs text-muted-foreground">
-                  Monthly rental payment
-                </p>
-              </CardContent>
-            </Card>
-          </div>
-
-          {/* Current Asset */}
-          {assetMetadata && (
-            <Card>
-              <CardHeader>
-                <div className="flex items-center justify-between">
-                  <div>
-                    <CardTitle className="text-xl">{assetMetadata.name}</CardTitle>
-                    <CardDescription className="text-base">
-                      {assetMetadata.description}
-                    </CardDescription>
-                  </div>
-                  <Badge variant="secondary" className="text-sm">
-                    {assetMetadata.asset_type.replace('_', ' ').toUpperCase()}
-                  </Badge>
-                </div>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                  <div>
-                    <p className="text-sm font-medium text-muted-foreground">Current Valuation</p>
-                    <p className="text-2xl font-bold">
-                      {formatCurrency(formatTokenAmount(assetMetadata.valuation, 7))}
-                    </p>
-                  </div>
-                  <div>
-                    <p className="text-sm font-medium text-muted-foreground">Your Share</p>
-                    <p className="text-2xl font-bold">
-                      {((parseFloat(formatTokenAmount(userBalance)) / 2500) * 100).toFixed(2)}%
-                    </p>
-                  </div>
-                  <div>
-                    <p className="text-sm font-medium text-muted-foreground">Token Symbol</p>
-                    <p className="text-2xl font-bold font-mono">{assetMetadata.symbol}</p>
-                  </div>
-                </div>
-                
-                <div className="flex gap-3">
-                  <Button asChild>
-                    <Link href="/transfer">
-                      Transfer Tokens
-                      <ArrowRight className="h-4 w-4 ml-2" />
-                    </Link>
-                  </Button>
-                  <Button variant="outline" asChild>
-                    <Link href="/marketplace">
-                      View More Assets
-                    </Link>
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
-          )}
-
-          {/* Quick Actions */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <Card>
-              <CardHeader>
-                <CardTitle>Investment Opportunities</CardTitle>
-                <CardDescription>
-                  Discover new tokenized assets to diversify your portfolio
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="space-y-3">
-                  <div className="flex items-center justify-between p-3 border rounded-lg">
-                    <div>
-                      <p className="font-medium">Downtown Office Building</p>
-                      <p className="text-sm text-muted-foreground">Commercial Real Estate</p>
-                    </div>
-                    <div className="text-right">
-                      <p className="font-bold">9.2% APY</p>
-                      <Badge variant="outline" className="text-xs">Coming Soon</Badge>
-                    </div>
-                  </div>
-                  
-                  <div className="flex items-center justify-between p-3 border rounded-lg">
-                    <div>
-                      <p className="font-medium">Gold Storage Facility</p>
-                      <p className="text-sm text-muted-foreground">Commodities</p>
-                    </div>
-                    <div className="text-right">
-                      <p className="font-bold">6.8% APY</p>
-                      <Badge variant="outline" className="text-xs">Q2 2025</Badge>
-                    </div>
-                  </div>
-                </div>
-                
-                <Button className="w-full" variant="outline" asChild>
-                  <Link href="/marketplace">
-                    View All Opportunities
-                    <ArrowRight className="h-4 w-4 ml-2" />
-                  </Link>
-                </Button>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardHeader>
-                <CardTitle>Recent Activity</CardTitle>
-                <CardDescription>
-                  Your latest transactions and updates
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="space-y-3">
-                  <div className="flex items-center gap-3">
-                    <div className="h-2 w-2 bg-green-500 rounded-full"></div>
-                    <div className="flex-1">
-                      <p className="text-sm font-medium">Welcome to RWA Investor</p>
-                      <p className="text-xs text-muted-foreground">Account created successfully</p>
-                    </div>
-                    <p className="text-xs text-muted-foreground">Just now</p>
-                  </div>
-                  
-                  <div className="flex items-center gap-3">
-                    <div className="h-2 w-2 bg-blue-500 rounded-full"></div>
-                    <div className="flex-1">
-                      <p className="text-sm font-medium">Compliance Verification</p>
-                      <p className="text-xs text-muted-foreground">KYC status updated</p>
-                    </div>
-                    <p className="text-xs text-muted-foreground">2 min ago</p>
-                  </div>
-                </div>
-                
-                <Button className="w-full" variant="outline" asChild>
-                  <Link href="/transfer">
-                    Make Your First Transfer
-                    <ArrowRight className="h-4 w-4 ml-2" />
-                  </Link>
-                </Button>
-              </CardContent>
-            </Card>
-          </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <QuickActionCard
+            title="Discover AI Assets"
+            description="Browse available AI models and datasets"
+            icon="🔍"
+            href="/marketplace"
+          />
+          <QuickActionCard
+            title="License Transfer"
+            description="Transfer AI asset licenses"
+            icon="🔄"
+            href="/transfer"
+          />
+          <QuickActionCard
+            title="Tokenize AI Asset"
+            description="List your AI model or dataset"
+            icon="📊"
+            href="/tokenize"
+          />
         </div>
       </main>
     </div>
   );
+}
+
+interface DashboardCardProps {
+  title: string;
+  value: string;
+  icon: string;
+}
+
+function DashboardCard({ title, value, icon }: DashboardCardProps) {
+  return (
+    <div className="p-6 bg-[#181A20] rounded-lg border border-[#6C7A89]">
+      <div className="flex items-center justify-between mb-4">
+        <h3 className="text-lg font-medium text-[#F4F4F4]">{title}</h3>
+        <span className="text-2xl">{icon}</span>
+      </div>
+      <p className="text-2xl font-bold text-[#00FFFF]">{value}</p>
+    </div>
+  )
+}
+
+interface QuickActionCardProps {
+  title: string;
+  description: string;
+  icon: string;
+  href: string;
+}
+
+function QuickActionCard({ title, description, icon, href }: QuickActionCardProps) {
+  return (
+    <a href={href} className="p-6 bg-[#181A20] rounded-lg border border-[#6C7A89] hover:border-[#00FFFF] transition-colors">
+      <div className="flex items-center mb-4">
+        <span className="text-2xl mr-3">{icon}</span>
+        <h3 className="text-lg font-medium text-[#F4F4F4]">{title}</h3>
+      </div>
+      <p className="text-[#6C7A89]">{description}</p>
+    </a>
+  )
 }

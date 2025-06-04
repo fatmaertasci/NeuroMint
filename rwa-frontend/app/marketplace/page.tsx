@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useWalletStore } from '@/stores/wallet';
-import { Header } from '@/components/layout/Header';
+import Header from '@/components/layout/Header';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -97,7 +97,52 @@ const marketplaceAssets = [
   }
 ];
 
-export default function MarketplacePage() {
+interface AssetCardProps {
+  name: string;
+  symbol: string;
+  creator: string;
+  status: 'verified' | 'experimental' | 'beta' | 'stable';
+  price: string;
+  performance: number;
+}
+
+function AssetCard({ name, symbol, creator, status, price, performance }: AssetCardProps) {
+  return (
+    <div className="p-4 bg-[#181A20] rounded-lg border border-[#6C7A89]">
+      <div className="flex justify-between items-start mb-4">
+        <div>
+          <h3 className="font-medium text-[#F4F4F4]">{name}</h3>
+          <p className="text-sm text-[#6C7A89]">{symbol}</p>
+        </div>
+        <span className={`px-2 py-1 rounded text-xs ${
+          status === 'verified' ? 'bg-green-900 text-green-300' :
+          status === 'stable' ? 'bg-blue-900 text-blue-300' :
+          'bg-yellow-900 text-yellow-300'
+        }`}>
+          {status}
+        </span>
+      </div>
+      
+      <div className="mb-4">
+        <p className="text-sm text-[#6C7A89]">Creator</p>
+        <p className="text-[#F4F4F4]">{creator}</p>
+      </div>
+      
+      <div className="flex justify-between items-end">
+        <div>
+          <p className="text-sm text-[#6C7A89]">Price</p>
+          <p className="text-lg font-medium text-[#00FFFF]">${price}</p>
+        </div>
+        <div className="text-right">
+          <p className="text-sm text-[#6C7A89]">Performance</p>
+          <p className="text-[#F4F4F4]">{performance}%</p>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export default function Marketplace() {
   const { isConnected } = useWalletStore();
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedType, setSelectedType] = useState<string>('all');
@@ -159,7 +204,7 @@ export default function MarketplacePage() {
         <div className="space-y-8">
           {/* Page Header */}
           <div className="space-y-4">
-            <h1 className="text-4xl font-bold">Asset Marketplace</h1>
+            <h1 className="text-4xl font-bold">AI Asset Marketplace</h1>
             <p className="text-xl text-muted-foreground">
               Discover tokenized real world assets and start investing today
             </p>
@@ -408,4 +453,4 @@ export default function MarketplacePage() {
       </main>
     </div>
   );
-} 
+}

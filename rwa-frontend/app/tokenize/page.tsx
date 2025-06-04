@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { useWalletStore } from '@/stores/wallet';
-import { Header } from '@/components/layout/Header';
+import Header from '@/components/layout/Header';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -85,7 +85,33 @@ const TOKENIZATION_STEPS = [
   }
 ];
 
-export default function TokenizePage() {
+interface TokenizationStepProps {
+  number: number;
+  title: string;
+  description: string;
+  children: React.ReactNode;
+}
+
+function TokenizationStep({ number, title, description, children }: TokenizationStepProps) {
+  return (
+    <div className="p-6 bg-[#181A20] rounded-lg border border-[#6C7A89]">
+      <div className="flex items-center mb-4">
+        <div className="w-8 h-8 rounded-full bg-[#00FFFF] text-[#0A0A23] flex items-center justify-center font-bold mr-4">
+          {number}
+        </div>
+        <div>
+          <h3 className="font-medium text-[#F4F4F4]">{title}</h3>
+          <p className="text-sm text-[#6C7A89]">{description}</p>
+        </div>
+      </div>
+      <div className="mt-6">
+        {children}
+      </div>
+    </div>
+  )
+}
+
+export default function Tokenize() {
   const { isConnected, address } = useWalletStore();
   const [currentStep, setCurrentStep] = useState(1);
   const [formData, setFormData] = useState({
@@ -654,4 +680,4 @@ export default function TokenizePage() {
       </main>
     </div>
   );
-} 
+}

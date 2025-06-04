@@ -14,8 +14,11 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "RWA Investor - Real World Asset Platform",
-  description: "Access tokenized real estate, commodities, and other physical assets through compliant blockchain technology on Stellar.",
+  title: 'AIToken Innovation Fund - AI Asset Investment Platform',
+  description: 'Tokenize and invest in AI models, datasets, and patents. Connect developers with investors in the AI innovation ecosystem.',
+  icons: {
+    icon: '/favicon.ico',
+  }
 };
 
 export default function RootLayout({
