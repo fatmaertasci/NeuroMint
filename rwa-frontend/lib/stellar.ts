@@ -1,5 +1,5 @@
 import { Networks, Keypair } from '@stellar/stellar-sdk';
-import { NetworkConfig } from './types';
+import { NetworkConfig, ContractError } from './types';
 
 // Network configurations
 export const NETWORKS: Record<'testnet' | 'mainnet', NetworkConfig> = {
@@ -41,10 +41,13 @@ export const formatTokenAmount = (amount: string | number, decimals = 7): string
   return formatted;
 };
 
-// Convert display amount to contract amount (multiply by 10^7)
-export const toContractAmount = (displayAmount: string | number): string => {
-  const num = typeof displayAmount === 'string' ? parseFloat(displayAmount) : displayAmount;
-  return Math.floor(num * Math.pow(10, 7)).toString();
+export const toContractAmount = (amount: string): string => {
+  try {
+    const num = parseFloat(amount);
+    return (num * 1e7).toString();
+  } catch {
+    return '0';
+  }
 };
 
 // Convert contract amount to display amount (divide by 10^7)
@@ -233,25 +236,21 @@ export const validatePercentage = (value: string): boolean => {
 };
 
 // Error handling utilities
-export const parseContractError = (error: any): string => {
-  if (typeof error === 'string') return error;
-  
-  if (error?.message) {
-    // Parse common Soroban error messages
-    if (error.message.includes('insufficient_balance')) {
-      return 'Insufficient balance for this transaction';
-    }
-    if (error.message.includes('not_whitelisted')) {
-      return 'Address not whitelisted for this asset';
-    }
-    if (error.message.includes('compliance_expired')) {
-      return 'Compliance verification has expired';
-    }
-    if (error.message.includes('contract_paused')) {
-      return 'Contract is currently paused';
-    }
+export const parseContractError = (error: Error | ContractError | unknown): string => {
+  if (error instanceof Error) {
     return error.message;
   }
   
-  return 'Unknown error occurred';
-}; 
+  if (typeof error === 'object' && error !== null) {
+    const contractError = error as ContractError;
+    if (contractError.message) {
+      return contractError.message;
+    }
+  }
+  
+  if (typeof error === 'string') {
+    return error;
+  }
+
+  return 'Unknown contract error occurred';
+};

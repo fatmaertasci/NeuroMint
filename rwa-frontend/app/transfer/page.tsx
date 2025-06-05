@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useWalletStore } from '@/stores/wallet';
 import { useContractStore } from '@/stores/contract';
-import { Header } from '@/components/layout/Header';
+import Header from '@/components/layout/Header';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -22,6 +22,12 @@ import { formatTokenAmount, isValidStellarAddress, toContractAmount, estimateNet
 import { toast } from 'sonner';
 import Link from 'next/link';
 
+interface ComplianceStatus {
+  isWhitelisted: boolean;
+  kycApproved: boolean;
+  transferAllowed: boolean;
+}
+
 export default function TransferPage() {
   const { isConnected, address, connect } = useWalletStore();
   const { 
@@ -37,8 +43,7 @@ export default function TransferPage() {
   const [recipient, setRecipient] = useState('');
   const [amount, setAmount] = useState('');
   const [isValidRecipient, setIsValidRecipient] = useState(false);
-  const [recipientCompliance, setRecipientCompliance] = useState<any>(null);
-  const [showConfirmation, setShowConfirmation] = useState(false);
+  const [recipientCompliance, setRecipientCompliance] = useState<ComplianceStatus | null>(null);
 
   // Load data on mount and when wallet connects
   useEffect(() => {
@@ -58,8 +63,8 @@ export default function TransferPage() {
         // In a real app, this would check recipient compliance
         setRecipientCompliance({
           isWhitelisted: true,
-          kyc_verified: true,
-          jurisdiction: 'US'
+          kycApproved: true,
+          transferAllowed: true
         });
       } else {
         setRecipientCompliance(null);
@@ -94,7 +99,6 @@ export default function TransferPage() {
         toast.success('Transfer completed successfully!');
         setAmount('');
         setRecipient('');
-        setShowConfirmation(false);
       } else {
         toast.error('Transfer failed. Please try again.');
       }
@@ -131,57 +135,11 @@ export default function TransferPage() {
   }
 
   return (
-    <div className="min-h-screen bg-background">
+    <>
       <Header />
-      <main className="container mx-auto px-4 py-8">
-        <div className="max-w-2xl mx-auto space-y-6">
-          {/* Page Header */}
-          <div className="space-y-2">
-            <h1 className="text-3xl font-bold">Transfer RWA Tokens</h1>
-            <p className="text-muted-foreground">
-              Send your tokenized real world asset shares to other verified investors
-            </p>
-          </div>
-
-          {/* Compliance Status */}
-          <Alert>
-            <Info className="h-4 w-4" />
-            <AlertDescription>
-              <div className="flex items-center justify-between">
-                <span>
-                  Your compliance status: {' '}
-                  <Badge variant={isWhitelisted ? 'default' : 'destructive'}>
-                    {isWhitelisted ? 'Verified' : 'Not Verified'}
-                  </Badge>
-                </span>
-                {compliance?.kyc_verified && (
-                  <Badge variant="outline" className="text-xs">
-                    KYC Complete
-                  </Badge>
-                )}
-              </div>
-            </AlertDescription>
-          </Alert>
-
-          {/* Current Holdings */}
-          <Card>
-            <CardHeader>
-              <CardTitle>Your Holdings</CardTitle>
-              <CardDescription>Available RWA tokens for transfer</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-2xl font-bold">{formatTokenAmount(userBalance)} LAPT</p>
-                  <p className="text-sm text-muted-foreground">Luxury Apartment NYC tokens</p>
-                </div>
-                <Badge variant="secondary">Real Estate</Badge>
-              </div>
-            </CardContent>
-          </Card>
-
-          {/* Transfer Form */}
-          <Card>
+      <main className="container mx-auto p-6 relative z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <Card className="bg-white/90 backdrop-blur">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <Send className="h-5 w-5" />
@@ -340,6 +298,6 @@ export default function TransferPage() {
           </div>
         </div>
       </main>
-    </div>
+    </>
   );
-} 
+}

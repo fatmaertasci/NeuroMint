@@ -28,11 +28,14 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+      <body 
+        className={`${geistSans.variable} ${geistMono.variable} font-sans min-h-screen bg-cover bg-center bg-fixed`}
+        style={{ backgroundImage: 'url(/backgrnd.jpg)' }}
       >
-        {children}
-        <Toaster />
+        <div className="min-h-screen bg-black/50">
+          {children}
+          <Toaster />
+        </div>
       </body>
     </html>
   );

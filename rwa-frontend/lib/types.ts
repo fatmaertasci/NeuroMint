@@ -16,6 +16,12 @@ export interface ComplianceData {
   compliance_expiry: number; // u64 timestamp
 }
 
+export interface ContractError {
+  message?: string;
+  code?: string;
+  [key: string]: unknown;
+}
+
 export interface Transaction {
   id: string;
   type: 'transfer' | 'mint' | 'burn';
@@ -29,11 +35,26 @@ export interface Transaction {
 }
 
 export interface ContractInfo {
-  contractId: string;
-  admin: string;
+  id: string;
+  name: string;
+  symbol: string;
   totalSupply: string;
-  isPaused: boolean;
-  metadata: AssetMetadata;
+  decimal: number;
+  owner: string;
+}
+
+export interface ContractMethods {
+  queryBalance(address: string): Promise<string>;
+  getAssetMetadata(): Promise<AssetMetadata>;
+  transfer(from: string, to: string, amount: string): Promise<boolean>;
+  getComplianceData(address: string): Promise<ComplianceData>;
+  getTransactionHistory(address: string): Promise<Transaction[]>;
+  totalSupply(): Promise<string>;
+  isPaused(): Promise<boolean>;
+  getAdmin(): Promise<string>;
+  isWhitelisted(address: string): Promise<boolean>;
+  addToWhitelist(address: string): Promise<boolean>;
+  balance: (address: string) => Promise<string>;
 }
 
 // Wallet Connection Types
@@ -265,4 +286,7 @@ export interface FinancialsFormData {
   managementFee: string;
   distributionFrequency: 'monthly' | 'quarterly' | 'annually';
   estimatedAppreciation: string;
-} 
+}
+
+// Contract Constants
+export const RWA_CONTRACT_ID = 'CBQAAC4EHNMMHEI2W3QU6UQ5N4KSVYRLVTB5M2XMARCNS4CNLWMX3VQ6';
