@@ -1,8 +1,8 @@
-# 🏢 RWA Investment Platform
+# 🧠 NeuroMint Platform
 
-A professional Real World Asset (RWA) tokenization and investment platform built on the Stellar blockchain. This platform enables investors to discover, invest in, and trade tokenized real world assets including real estate, commodities, and infrastructure projects.
+A cutting-edge platform for tokenizing and investing in neuro-related assets. Built on the Stellar blockchain, NeuroMint enables fractional ownership of high-value assets, including medical research facilities, pharmaceutical patents, and healthcare infrastructure.
 
-![RWA Platform](https://img.shields.io/badge/Platform-RWA_Investment-blue)
+![NeuroMint Platform](https://img.shields.io/badge/Platform-NeuroMint-blue)
 ![Blockchain](https://img.shields.io/badge/Blockchain-Stellar-brightgreen)
 ![Framework](https://img.shields.io/badge/Framework-Next.js_15-black)
 ![TypeScript](https://img.shields.io/badge/Language-TypeScript-blue)
@@ -10,25 +10,25 @@ A professional Real World Asset (RWA) tokenization and investment platform built
 
 ## 🎯 **Project Overview**
 
-The RWA Investment Platform democratizes access to traditionally illiquid real world assets by tokenizing them on the Stellar blockchain. Investors can purchase fractional ownership of high-value assets like premium real estate, precious metals storage facilities, and renewable energy infrastructure.
+NeuroMint revolutionizes healthcare investments by tokenizing neuro-related assets on the Stellar blockchain. Investors can purchase fractional ownership of premium healthcare assets, including medical research facilities, pharmaceutical patents, and healthcare infrastructure.
 
 ### **🌟 Key Features**
 
 #### **For Investors**
 - 💼 **Professional Dashboard** - Portfolio overview with real-time asset valuations
-- 🏪 **Asset Marketplace** - Discover and filter tokenized investment opportunities
-- 💸 **Secure Transfers** - Send/receive RWA tokens with compliance validation
+- 🏪 **Asset Marketplace** - Discover and filter tokenized healthcare investment opportunities
+- 💸 **Secure Transfers** - Send/receive healthcare tokens with compliance validation
 - 📊 **Performance Tracking** - Monitor yields, compliance status, and asset performance
 - 🔐 **Wallet Integration** - Seamless Freighter wallet connectivity
 
 #### **For Asset Owners**
-- 🏭 **Tokenization Wizard** - 5-step process to tokenize physical assets
+- 🧠 **Tokenization Wizard** - 5-step process to tokenize healthcare assets
 - 📋 **Compliance Management** - KYC/AML and regulatory compliance tools
 - 📈 **Funding Management** - Set investment goals and track capital raising
 - 🔒 **Legal Framework** - Document verification and legal compliance
 
 #### **Platform Features**
-- 🌐 **Multi-Asset Support** - Real estate, commodities, infrastructure
+- 🌐 **Multi-Asset Support** - Medical research facilities, pharmaceutical patents, healthcare infrastructure
 - ⚡ **Stellar Integration** - Fast, low-cost blockchain transactions
 - 🛡️ **Regulatory Compliance** - Built-in KYC/whitelist validation
 - 📱 **Responsive Design** - Professional UI optimized for all devices
@@ -46,8 +46,8 @@ The RWA Investment Platform democratizes access to traditionally illiquid real w
 
 ```bash
 # Clone the repository
-git clone <repository-url>
-cd rwa-investment-platform
+git clone https://github.com/fatmaertasci/NeuroMint.git
+cd NeuroMint
 
 # Navigate to frontend directory
 cd rwa-frontend
@@ -415,4 +415,4 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 
 [Website](link) • [Documentation](link) • [Discord](link) • [Twitter](link)
 
-</div> 
+</div>
